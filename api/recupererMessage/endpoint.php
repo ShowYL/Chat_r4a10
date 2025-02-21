@@ -1,5 +1,5 @@
 <?php
-require_once '../php/recuperer.php';
+require_once '../../php/recuperer.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
