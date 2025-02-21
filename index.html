@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/global.css">
+    <link rel="shortcut icon" href="./static/message-circle-code.svg" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <div class="flex flex-col min-h-screen justify-between items-center bg-slate-50 max-h-screen h-full"> 
-        <div class="mt-2 w-3/5 flex flex-col space-y-3 rounded-lg p-4 overflow-y-auto max-h-[75%]" id="messages-container">
+    <div class="page"> 
+        <div class="messages-container" id="messages-container">
             <!-- Messages will be loaded here -->
         </div>
-        <div class="w-3/5 flex space-x-3 shadow-md rounded-lg p-4 bg-white mb-5"> 
-            <input type="text" name="pseudo" placeholder="Entrez votre pseudo, ex: jbroisin" class="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="pseudo"/>
-            <div class="relative w-full">
-                <input type="text" name="message" placeholder="Saisissez votre message" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm pr-10" id="message" onkeydown="handleKeyDown(event)"/>
-                <button class="absolute cursor-pointer top-3 right-2 items-center rounded-full transition-transform duration-300 ease hover:scale-120 hover:-rotate-90" onclick="envoyer()">
+        <div class="input-container"> 
+            <input type="text" name="pseudo" placeholder="Entrez votre pseudo, ex: jbroisin" class="input-pseudo" id="pseudo"/>
+            <div class="form-container">
+                <input type="text" name="message" placeholder="Saisissez votre message" class="input-message" id="message" onkeydown="handleKeyDown(event)"/>
+                <button class="button-send" onclick="envoyer()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-right"><circle cx="12" cy="12" r="10"/><path d="m10 8 4 4-4 4"/></svg>
                 </button>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="script/script.js"></script>
 </body>
 </html>
