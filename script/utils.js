@@ -1,5 +1,5 @@
 
-export async function getXHR(url, method="GET", data=null) {
+export default async function getXHR(url, method="GET", data=null) {
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
 
