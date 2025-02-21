@@ -95,10 +95,10 @@ function formatMessagesAsHTML($messages) {
         $timeSend = htmlspecialchars($message['timeSend']);
         $date = (new dateFormat($timeSend))->getDate();
 
-        $html .= "<div class='m-2 hover:bg-slate-200 p-2 rounded-lg'>";
-        $html .= "<div class='text-lg'>{$pseudo}</div>";
-        $html .= "<div class='text-slate-700'>{$messageText}</div>";
-        $html .= "<div class='font-extralight text-xs'>{$date['string']}</div>";
+        $html .= "<div class='message-div'>";
+        $html .= "<div class='pseudo'>{$pseudo}</div>";
+        $html .= "<div class='message'>{$messageText}</div>";
+        $html .= "<div class='date'>{$date['string']}</div>";
         $html .= "</div>";
     }
     return $html;
