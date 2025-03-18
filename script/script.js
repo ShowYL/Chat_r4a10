@@ -32,10 +32,9 @@ function loadInitialMessages() {
         }
     });
 }
-
+const lastFetchTime = Math.floor(Date.now() / 1000);
 function fetchMessages(){
     const messagesContainer = $("#new-messages");
-    const lastFetchTime = new Date().toISOString();
     if (messagesContainer.length) {
         messagesContainer.load(`../api/recupererMessage/endpoint.php?lastFetchTime=${lastFetchTime}`, function(response, status, xhr) {
             if (status == "error") {

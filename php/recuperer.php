@@ -92,7 +92,7 @@ function getInitialMessages($limit = 10) {
     $db = new Connection();
     $conn = $db->getConnection();
 
-    // Récupérer les derniers messages, limités à $limit
+    // Récupérer les 10 messages les plus récents
     $query = $conn->prepare("SELECT * FROM messages ORDER BY timeSend DESC LIMIT :limit");
     $query->bindParam(':limit', $limit, PDO::PARAM_INT);
     $query->execute();
@@ -105,8 +105,10 @@ function getInitialMessages($limit = 10) {
 
 function formatMessagesAsHTML($messages) {
     $html = '';
-    for ($i = count($messages) - 1; $i >= 0; $i--) {
-        $message = $messages[$i];
+    // Inverser l'ordre des messages pour les afficher du plus ancien au plus récent
+    $messages = array_reverse($messages);
+
+    foreach ($messages as $message) {
         $pseudo = htmlspecialchars($message['pseudo']);
         $messageText = htmlspecialchars($message['message']);
         $timeSend = htmlspecialchars($message['timeSend']);

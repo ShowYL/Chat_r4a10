@@ -12,7 +12,7 @@ switch($_SERVER['REQUEST_METHOD']){
         if (isset($_GET['limit'])) {
             // Récupérer les messages les plus récents
             $limit = intval($_GET['limit']);
-            $messages = getRecentMessages($limit);
+            $messages = getInitialMessages($limit);
         } elseif (isset($_GET['lastFetchTime'])) {
             // Récupérer les nouveaux messages après un certain timestamp
             $lastFetchTime = intval($_GET['lastFetchTime']);
