@@ -4,6 +4,7 @@ require_once '../../php/enregistrer.php';
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header('Content-Type:application/json; charset=utf-8');
 
 switch($_SERVER['REQUEST_METHOD']){
     case "POST":
@@ -11,12 +12,12 @@ switch($_SERVER['REQUEST_METHOD']){
         $data = json_decode($postedData, true);
         if (isset($data["pseudo"]) && isset($data['message'])){
             if(setMessage($data["pseudo"], $data["message"], time())){
-                deliverResponse(200, 'Sucessfull');
+                deliverResponse(200, 'Sucessfull', header('Access-Control-Allow-Origin: *'));
             }else{
-                deliverResponse(500, "Internal Error");
+                deliverResponse(500, "Internal Error", header('Access-Control-Allow-Origin: *'));
             }
         }else{
-            deliverResponse(400,"Le pseudo et le message n'est pas spécifié");
+            deliverResponse(400,"Le pseudo et le message n'est pas spécifié", header('Access-Control-Allow-Origin: *'));
         }
 }
 ?>
