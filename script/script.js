@@ -23,7 +23,6 @@ button.addEventListener('click', envoyer);
 // appuyer sur entrer quand l input message est focus pour envoyer un message
 message.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' && messageValue !== '') {
-        console.log("here   ")
         envoyer();
     }
 });
