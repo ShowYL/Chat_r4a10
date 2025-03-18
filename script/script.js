@@ -18,13 +18,26 @@ button.addEventListener('click', envoyer);
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    loadInitialMessages();
     setInterval(fetchMessages, 2000);
 });
 
+function loadInitialMessages() {
+    const initialMessagesContainer = $("#initial-messages");
+    initialMessagesContainer.load('../api/recupererMessage/endpoint.php?limit=10', function(response, status, xhr) {
+        if (status == "error") {
+            console.log("Erreur: " + xhr.status + " " + xhr.statusText);
+        } else {
+            console.log("10 premiers messages chargés");
+        }
+    });
+}
+
 function fetchMessages(){
-    const messagesContainer = $("#messages-container");
+    const messagesContainer = $("#new-messages");
+    const lastFetchTime = new Date().toISOString();
     if (messagesContainer.length) {
-        messagesContainer.load('../api/recupererMessage/endpoint.php', function(response, status, xhr) {
+        messagesContainer.load(`../api/recupererMessage/endpoint.php?lastFetchTime=${lastFetchTime}`, function(response, status, xhr) {
             if (status == "error") {
                 console.log("Erreur: " + xhr.status + " " + xhr.statusText);
             } else {

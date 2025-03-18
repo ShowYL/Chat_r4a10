@@ -73,11 +73,28 @@ class dateFormat {
     }
 }
 
-function getMessages(){
+function getNewMessages($lastFetchTime) {
     $db = new Connection();
     $conn = $db->getConnection();
 
-    $query = $conn->prepare("SELECT * FROM messages ORDER BY timeSend DESC");
+    // Récupérer les messages envoyés après $lastFetchTime
+    $query = $conn->prepare("SELECT * FROM messages WHERE timeSend > :lastFetchTime ORDER BY timeSend ASC");
+    $query->bindParam(':lastFetchTime', $lastFetchTime, PDO::PARAM_INT);
+    $query->execute();
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    $db->closeConnection();
+
+    return $result;
+}
+
+function getInitialMessages($limit = 10) {
+    $db = new Connection();
+    $conn = $db->getConnection();
+
+    // Récupérer les derniers messages, limités à $limit
+    $query = $conn->prepare("SELECT * FROM messages ORDER BY timeSend DESC LIMIT :limit");
+    $query->bindParam(':limit', $limit, PDO::PARAM_INT);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 

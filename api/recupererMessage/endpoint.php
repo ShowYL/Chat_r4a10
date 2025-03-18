@@ -9,7 +9,19 @@ header('Content-Type: text/html');
 
 switch($_SERVER['REQUEST_METHOD']){
     case "GET":
-        $messages = getMessages();
+        if (isset($_GET['limit'])) {
+            // Récupérer les messages les plus récents
+            $limit = intval($_GET['limit']);
+            $messages = getRecentMessages($limit);
+        } elseif (isset($_GET['lastFetchTime'])) {
+            // Récupérer les nouveaux messages après un certain timestamp
+            $lastFetchTime = intval($_GET['lastFetchTime']);
+            $messages = getNewMessages($lastFetchTime);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid parameters']);
+            exit;
+        }
         echo formatMessagesAsHTML($messages);
         break;
     default:
