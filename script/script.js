@@ -6,6 +6,8 @@ const pseudo = document.getElementById('pseudo');
 const message = document.getElementById('message');
 const button = document.getElementById('button-send');
 
+const apiBaseUrl = "https://chatr410.alwaysdata.net/api";
+
 let pseudoValue = ""; // valeur pseudo
 let messageValue = ""; // valeur message
 
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function loadInitialMessages() {
     const initialMessagesContainer = $("#initial-messages");
-    initialMessagesContainer.load('../api/recupererMessage/endpoint.php?limit=10', function(response, status, xhr) {
+    initialMessagesContainer.load(`${apiBaseUrl}/recupererMessage/endpoint.php?limit=10`, function(response, status, xhr) {
         if (status == "error") {
             console.log("Erreur: " + xhr.status + " " + xhr.statusText);
         } else {
@@ -49,7 +51,7 @@ const lastFetchTime = Math.floor(Date.now() / 1000);
 function fetchMessages(){
     const messagesContainer = $("#new-messages"); // récupérer la div
     if (messagesContainer.length) {
-        messagesContainer.load(`../api/recupererMessage/endpoint.php?lastFetchTime=${lastFetchTime}`, function(response, status, xhr) {
+        messagesContainer.load(`${apiBaseUrl}/recupererMessage/endpoint.php?lastFetchTime=${lastFetchTime}`, function(response, status, xhr) {
             if (status == "error") {
                 console.log("Erreur: " + xhr.status + " " + xhr.statusText);
             } else {
@@ -64,7 +66,7 @@ function fetchMessages(){
 // function pour envoyer un message
 async function envoyer(){
     let toSend = {"pseudo":pseudoValue,"message":messageValue}
-    getXHR('../api/envoyerMessage/endpoint.php',"POST",JSON.stringify(toSend))
+    getXHR(`${apiBaseUrl}/envoyerMessage/endpoint.php`,"POST",JSON.stringify(toSend))
     .then(data => JSON.parse(data))
     .then(data => console.log(data))
     .then(() => message.value = "")
