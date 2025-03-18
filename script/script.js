@@ -1,28 +1,41 @@
 import getXHR from './utils.js';
 
+const rafraichissement = 1000 // temps de rafraichissement en millisecondes
 
 const pseudo = document.getElementById('pseudo');
 const message = document.getElementById('message');
 const button = document.getElementById('button-send');
-let pseudoValue = "";
-let messageValue = "";
+
+let pseudoValue = ""; // valeur pseudo
+let messageValue = ""; // valeur message
+
+// synchroniser les valeurs des inputs et les variables
 pseudo.addEventListener('input', (event) => {
     (pseudoValue = event.target.value);
 });
 message.addEventListener('input', (event) => {
     (messageValue = event.target.value);
 });
+
+// clic button action
 button.addEventListener('click', envoyer);
 
-
-
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    setInterval(fetchMessages, 2000);
+// appuyer sur entrer quand l input message est focus pour envoyer un message
+message.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && messageValue !== '') {
+        console.log("here   ")
+        envoyer();
+    }
 });
 
+// fetch en continue les messages
+document.addEventListener('DOMContentLoaded', (event) => {
+    setInterval(fetchMessages, rafraichissement);
+});
+
+// function pour récupérer les messages
 function fetchMessages(){
-    const messagesContainer = $("#messages-container");
+    const messagesContainer = $("#messages-container"); // récupérer la div
     if (messagesContainer.length) {
         messagesContainer.load('../api/recupererMessage/endpoint.php', function(response, status, xhr) {
             if (status == "error") {
@@ -36,6 +49,7 @@ function fetchMessages(){
     }
 }
 
+// function pour envoyer un message
 async function envoyer(){
     let toSend = {"pseudo":pseudoValue,"message":messageValue}
     getXHR('../api/envoyerMessage/endpoint.php',"POST",JSON.stringify(toSend))
@@ -43,15 +57,4 @@ async function envoyer(){
     .then(data => console.log(data))
     .then(() => message.value = "")
     .catch(err => console.error(err))
-}
-
-function handleKeyDown(event) {
-    if (event.key === 'Enter') {
-        envoyer();
-        const button = document.querySelector('button');
-        button.classList.add('scale-120', '-rotate-90');
-        setTimeout(() => {
-            button.classList.remove('scale-120', '-rotate-90');
-        }, 300);
-    }
 }
