@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/global.css">
     <link rel="shortcut icon" href="./static/message-circle-code.svg" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Import de jQuery -->
+    <title>Le messager</title>
 </head>
 <body>
     <div class="page"> 
         <div class="messages-container" id="messages-container">
-            <!-- Messages will be loaded here -->
-            <div id="initial-messages"></div>
-            <div id="new-messages"></div>
+            <div id="initial-messages"></div> <!-- afficher les 10 premiers messages -->
+            <div id="new-messages"></div> <!-- afficher les nouveaux messages -->
         </div>
         <div class="input-container"> 
             <input type="text" name="pseudo" placeholder="Entrez votre pseudo, ex: jbroisin" class="input-pseudo" id="pseudo"/>

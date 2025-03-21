@@ -6,7 +6,7 @@ const pseudo = document.getElementById('pseudo');
 const message = document.getElementById('message');
 const button = document.getElementById('button-send');
 
-const apiBaseUrl = "https://chatr410.alwaysdata.net/api";
+const apiBaseUrl = "https://chatr410.alwaysdata.net/api"; // URL de l'API
 
 let pseudoValue = ""; // valeur pseudo
 let messageValue = ""; // valeur message
@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function loadInitialMessages() {
-    const initialMessagesContainer = $("#initial-messages");
+    const initialMessagesContainer = $("#initial-messages"); // récupérer la div des 10 premiers messages
+    // charger les messages depuis l'API en utilisant la fonction load 
     initialMessagesContainer.load(`${apiBaseUrl}/recupererMessage/endpoint.php?limit=10`, function(response, status, xhr) {
         if (status == "error") {
             console.log("Erreur: " + xhr.status + " " + xhr.statusText);
@@ -49,8 +50,9 @@ const lastFetchTime = Math.floor(Date.now() / 1000);
 
 // function pour récupérer les messages
 function fetchMessages(){
-    const messagesContainer = $("#new-messages"); // récupérer la div
+    const messagesContainer = $("#new-messages"); // récupérer la div des nouveau messages
     if (messagesContainer.length) {
+        // charger les messages depuis l'API en utilisant la fonction load 
         messagesContainer.load(`${apiBaseUrl}/recupererMessage/endpoint.php?lastFetchTime=${lastFetchTime}`, function(response, status, xhr) {
             if (status == "error") {
                 console.log("Erreur: " + xhr.status + " " + xhr.statusText);
