@@ -156,12 +156,14 @@ function formatMessagesAsHTML($messages) {
     // Inverser l'ordre des messages pour les afficher du plus ancien au plus récent
     $messages = array_reverse($messages);
 
+    // Formater chaque message
     foreach ($messages as $message) {
         $pseudo = htmlspecialchars($message['pseudo']);
         $messageText = htmlspecialchars($message['message']);
         $timeSend = htmlspecialchars($message['timeSend']);
         $date = (new dateFormat($timeSend))->getDate();
 
+        // Génére le code HTML pour chaque message
         $html .= "<div class='message-div'>";
         $html .= "<div class='pseudo'>{$pseudo}</div>";
         $html .= "<div class='message'>{$messageText}</div>";

@@ -68,7 +68,7 @@ function fetchMessages(){
 // function pour envoyer un message
 async function envoyer(){
     let toSend = {"pseudo":pseudoValue,"message":messageValue}
-    getXHR(`${apiBaseUrl}/envoyerMessage/endpoint.php`,"POST",JSON.stringify(toSend))
+    getXHR(`${apiBaseUrl}/envoyerMessage/endpoint.php`,"POST",JSON.stringify(toSend)) // envoyer le message
     .then(data => JSON.parse(data))
     .then(data => console.log(data))
     .then(() => message.value = "")
