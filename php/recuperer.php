@@ -111,7 +111,7 @@ function getNewMessages($lastFetchTime) {
     $conn = $db->getConnection();
 
     // Récupérer les messages envoyés après $lastFetchTime
-    $query = $conn->prepare("SELECT * FROM messages WHERE timeSend > :lastFetchTime ORDER BY timeSend ASC");
+    $query = $conn->prepare("SELECT * FROM messages WHERE timeSend > :lastFetchTime ORDER BY timeSend DESC");
     $query->bindParam(':lastFetchTime', $lastFetchTime, PDO::PARAM_INT);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);

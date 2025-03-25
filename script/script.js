@@ -20,10 +20,31 @@ message.addEventListener('input', (event) => {
 });
 
 // clic button action
-button.addEventListener('click', envoyer);
+button.addEventListener('click', ()  => {
+    if (pseudoValue === '') {
+        alert("Veuillez choisir un pseudo");
+	return;
+    }
+    if (messageValue === '') {
+        alert("Veuillez écrire un message");
+	return;
+    }
+    if (pseudoValue !== '' && messageValue !== '') {
+        envoyer();
+    }
+}
+);  
 
 // appuyer sur entrer quand l input message est focus pour envoyer un message
 message.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && messageValue === '') {
+        alert("Veuillez écrire un message");
+	return;
+    }
+    if (event.key === 'Enter' && pseudoValue === '') {
+        alert("Veuillez choisir un pseudo");
+	return;
+    }
     if (event.key === 'Enter' && messageValue !== '') {
         envoyer();
     }
@@ -46,11 +67,12 @@ function loadInitialMessages() {
         }
     });
 }
-const lastFetchTime = Math.floor(Date.now() / 1000);
+
 
 // function pour récupérer les messages
 function fetchMessages(){
     const messagesContainer = $("#new-messages"); // récupérer la div des nouveau messages
+    let lastFetchTime = Math.floor(Date.now() / 1000);
     if (messagesContainer.length) {
         // charger les messages depuis l'API en utilisant la fonction load 
         messagesContainer.load(`${apiBaseUrl}/recupererMessage/endpoint.php?lastFetchTime=${lastFetchTime}`, function(response, status, xhr) {
@@ -58,6 +80,7 @@ function fetchMessages(){
                 console.log("Erreur: " + xhr.status + " " + xhr.statusText);
             } else {
                 console.log("Messages récupérés");
+
             }
         });
     } else {

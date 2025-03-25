@@ -13,12 +13,10 @@ switch($_SERVER['REQUEST_METHOD']){
             // Récupérer les messages les plus récents
             $limit = intval($_GET['limit']);
             $messages = getInitialMessages($limit);
-            deliverResponse(200, 'Success');
         } elseif (isset($_GET['lastFetchTime'])) {
             // Récupérer les nouveaux messages après un certain timestamp
             $lastFetchTime = intval($_GET['lastFetchTime']);
             $messages = getNewMessages($lastFetchTime);
-            deliverResponse(200, 'Success');
         } else {
             http_response_code(400); // mauvaise requête
             echo json_encode(['error' => 'Invalid parameters']); // Afficher un message d'erreur
